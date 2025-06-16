@@ -1,0 +1,41 @@
+body {
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.label-group {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.input-line {
+    margin: 2px 0;
+}
+
+.actions {
+    margin-top: 20px;
+}
+
+.add-btn {
+    margin-left: 10px;
+}
+
+#power-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #444;
+    z-index: 1000;
+}
+
+#power-button:hover {
+    color: #e00;
+}

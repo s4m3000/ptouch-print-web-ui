@@ -1,0 +1,5 @@
+title = "ptouch-print web ui configuration"
+
+[config]
+host_name = "dietpi"
+ip = "192.168.1.6"

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Label Printer</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+  <!-- On/Off Button -->
+  <button class="power-button" id="power-button" title="Power">
+    <i class="fas fa-power-off"></i>
+  </button>
+
+  <h2>Label Printer</h2>
+  <form id="label-form">
+    <div id="labels-container"></div>
+    <div class="actions">
+      <button type="button" onclick="addLabel()">➕ Add Label</button>
+      <button type="submit">🖨️ Print</button>
+    </div>
+  </form>
+
+  <script src="/static/js/main.js"></script>
+</body>
+
+</html>
