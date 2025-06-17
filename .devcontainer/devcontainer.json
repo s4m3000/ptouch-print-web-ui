@@ -16,9 +16,6 @@
 	"forwardPorts": [
 		5000
 	],
-	"mounts": [
-		"source=${localWorkspaceFolder}/config/ssh-key/container_shutdown_key,target=/etc/ssh/shutdown_key,type=bind,readonly"
-	],
 	"containerEnv": {
 		"DEV_MODE": "1"
 	}
