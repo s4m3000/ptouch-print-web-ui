@@ -19,6 +19,11 @@ function addLabel() {
   labelCount++;
 }
 
+// Reload the page after clicking the "Reset" button
+function reloadLocation() {
+  location.reload();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   addLabel();
 
