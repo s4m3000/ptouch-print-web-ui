@@ -16,7 +16,7 @@ def print_labels():
     data = request.json
     labels = data.get("labels", [])
     font = data.get("font")
-    font_size = data.get("fontsize")
+    fontsize = data.get("fontsize")
     if not labels:
         return "No labels provided", 400
 
