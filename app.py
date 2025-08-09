@@ -60,7 +60,7 @@ def list_fonts():
         font_families = sorted(list(set(result.stdout.strip().split('\n'))))
         return jsonify(font_families)
     except (subprocess.CalledProcessError, FileNotFoundError) as e:
-        return f"Error: Failed to list fonts. Make sure 'fc-list' is installed and in your PATH. Details: {e}", 500
+        return f"Error: Failed to list fonts. Make sure 'fontconfig' package is installed and in your PATH. Details: {e}", 500
 
 @app.route("/shutdown", methods=["POST"])
 def shutdown():
