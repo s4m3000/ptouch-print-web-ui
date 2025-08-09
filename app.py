@@ -15,10 +15,20 @@ def index():
 def print_labels():
     data = request.json
     labels = data.get("labels", [])
+    font = data.get("font")
+    font_size = data.get("fontsize")
     if not labels:
         return "No labels provided", 400
 
     command = ["ptouch-print"]
+    if font:
+        command.append("--font")
+        command.append(font)
+    
+    if fontsize and fontsize.isdigit():
+        command.append("--fontsize")
+        command.append(fontsize)
+
     for label in labels:
         # Keep only lines that are not truly empty
         non_empty_lines = [line for line in label if line != ""]
@@ -40,6 +50,17 @@ def print_labels():
         return "Labels printed successfully!"
     except subprocess.CalledProcessError as e:
         return f"Printing failed: {e}", 500
+
+@app.route("/list-fonts", methods=["GET"])
+def list_fonts():
+    try:
+        # Execute the fc-list command and capture the output
+        result = subprocess.run(["fc-list", "--format=%{family[0]}\\n"], capture_output=True, text=True, check=True)
+        # Get the unique font families from the output
+        font_families = sorted(list(set(result.stdout.strip().split('\n'))))
+        return jsonify(font_families)
+    except (subprocess.CalledProcessError, FileNotFoundError) as e:
+        return f"Error: Failed to list fonts. Make sure 'fc-list' is installed and in your PATH. Details: {e}", 500
 
 @app.route("/shutdown", methods=["POST"])
 def shutdown():

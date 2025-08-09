@@ -30,6 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("label-form").addEventListener("submit", async function (e) {
     e.preventDefault();
     const data = [];
+    const font = document.getElementById("font").value;
+    const fontSize = document.getElementById("fontsize").value;
 
     for (let i = 0; i < labelCount; i++) {
       const lines = [];
@@ -47,11 +49,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const response = await fetch('/print', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ labels: data })
+      body: JSON.stringify({ labels: data, "font": font, "fontsize": fontSize })
     });
 
     const result = await response.text();
     alert(result);
+  });
+
+  document.getElementById("list-fonts-btn").addEventListener("click", async () => {
+    const fontListContainer = document.getElementById("font-list-container");
+    const fontList = document.getElementById("font-list");
+
+    try {
+        const response = await fetch("/list-fonts");
+        if (response.ok) {
+            const fonts = await response.json();
+            fontList.textContent = fonts.join('\n');
+            fontListContainer.style.display = "block";
+        } else {
+            const error = await response.text();
+            alert(error);
+        }
+    } catch (error) {
+        alert("An error occurred while fetching the font list.");
+    }
   });
 });
 

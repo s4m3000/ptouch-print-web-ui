@@ -16,13 +16,31 @@
 
   <h2>Label Printer</h2>
   <form id="label-form">
+    <label for="font"> Font (e.g. DejaVu Sans)</label>
+    <input type="text" id="font" placeholder="DejaVu Sans" />
+    <label for="fontsize"> Font Size (e.g. 10)</label>
+    <input type="text" id="fontsize" placeholder="Auto-sized labels" />
     <div id="labels-container"></div>
     <div class="actions">
       <button type="button" onclick="addLabel()">➕ Add Label</button>
       <button type="submit">🖨️ Print</button>
       <button type="button" onclick="reloadLocation()">&circlearrowleft; Reset</button>
+      <button type="button" id="list-fonts-btn">List Available Fonts</button>
     </div>
   </form>
+
+  <div id="font-list-container" style="display: none;">
+      <h4>Available Fonts:</h4>
+      <pre id="font-list"></pre>
+  </div>
+
+  <div class="notes-section">
+    <h3>Notes:</h3>
+    <ul>
+      <li>Leave Font Size field blank for auto-sized labels.</li>
+      <li></li>
+    </ul>
+  </div>
 
   <script src="/static/js/main.js"></script>
 </body>
