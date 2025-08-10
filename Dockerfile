@@ -7,13 +7,12 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Install system dependencies for ptouch-print + Python
 RUN apt-get update && apt-get install -y --no-install-recommends \
     openssh-client \
+    fontconfig \
     build-essential \
     cmake \
     gettext \
     libgd-dev \
     libusb-1.0-0-dev \
-    fonts-recommended \
-    fontconfig \
     git \
     sudo \
     && rm -rf /var/lib/apt/lists/*
