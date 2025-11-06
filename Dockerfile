@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Clone and build ptouch-print
 RUN git clone https://git.familie-radermacher.ch/linux/ptouch-print.git /opt/ptouch-print \
     && cd /opt/ptouch-print \
-    && ./build.sh \
+    && ./compile.sh \
     && make -C build/ install \
     && rm -rf /opt/ptouch-print
 
