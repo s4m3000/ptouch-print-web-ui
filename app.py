@@ -22,6 +22,8 @@ def print_labels():
 
     command = ["ptouch-print"]
     if font:
+        # Remove spaces
+        font = font.replace(" ", "")
         command.append("--font")
         command.append(font)
     
@@ -41,8 +43,9 @@ def print_labels():
             command.append("--pad 2")
 
     try:
-        # Run command (remove the last --cutmark)
+        # Remove the last `--cutmark` and `--pad`
         if command[-2] == "--cutmark":
+            command.pop()
             command.pop()
 
         print("Running command:", " ".join(command))

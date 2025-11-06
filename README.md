@@ -1,7 +1,7 @@
 # ptouch-print Web UI
 This is a simple web UI to send print commands to a PTouch label printer. The server can run on an SBC like the Raspberry Pi 3, which is connected to a local network and a label printer via USB. [ptouch-print](https://dominic.familie-radermacher.ch/projekte/ptouch-print/) by Dominic Radermacher is used to send the commands to the printer.
 
-***Limitations:*** *`ptouch-print` lets you set fonts, print images, and print to image for preview purposes. At the moment, these features are not implemented here.*  
+***Limitations:*** *`ptouch-print` lets you print images, and print to image for preview purposes. At the moment, these features are not implemented here.*  
   
 ***Disclaimer:*** *This is my first attempt at web development and working with docker. So, the code and workflow might not be state of the art.*
 
@@ -65,7 +65,7 @@ On DietPi, enter `diepti-led_control` into the terminal and set the trigger for 
 
 
 ## Development with VSC and Dev Container
-With Visual Stuio Code, you may want to use the **Remote-SSH** extension to work on a headless Raspberry Pi (or other SBC).
+With Visual Studio Code, you may want to use the **Remote-SSH** extension to work on a headless Raspberry Pi (or other SBC).
 Using the **Dev Container** extension in Visual Studio Code, you can reopen the repository in a dev container. To run the code there, run `python app.py` and open `http://localhost:5000` in your browser.  
 ### Optional: Simulate shutdown and run the flask in debug mode:  
 The following needs to be in `devcontainer.json`:  
