@@ -178,3 +178,6 @@ cython_debug/
 
 # Private key
 container_shutdown_key
+
+# IDE stuff
+.vscode

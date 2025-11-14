@@ -1,0 +1,20 @@
+# .dockerignore
+
+# Doc stuff
+docs/
+README.md
+
+# Scripts
+scripts/
+
+# DevPod stuff
+#.devpod-internal/
+
+# Docker stuff
+.devcontainer/
+
+# Git stuff
+.gitignore
+
+# IDE stuff
+.vscode

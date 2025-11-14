@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Get the script direcotry
+# Get the script directory
 cd "$(dirname "$0")"
 SCRIPT_DIR="$(pwd)"
 
