@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # CONFIGURATION
-HOST_NAME="your-host-name"
+HOST_NAME="dietpi"
 SUDOERS_FILE="/etc/sudoers.d/shutdown-direct"
 SHUTDOWN_CMD="/sbin/shutdown"
 

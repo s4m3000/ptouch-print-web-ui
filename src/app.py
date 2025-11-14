@@ -5,7 +5,8 @@ import tomllib
 from pathlib import Path
 
 app = Flask(__name__)
-config_file = Path("config/config.toml")
+_CONFIG_DIR = Path.cwd() / "config"
+_CONFIG_FILE = _CONFIG_DIR / "config.toml"
 
 @app.route("/")
 def index():
@@ -74,7 +75,7 @@ def shutdown():
 
     try:
         subprocess.run([            
-            "ssh", "-i", "config/ssh-key/container_shutdown_key", #"/etc/ssh/shutdown_key",
+            "ssh", "-i", str(_CONFIG_DIR) + "/ssh-key/container_shutdown_key",
             "-o", "StrictHostKeyChecking=no",
             ssh_login(), 
             "sudo /sbin/shutdown -h now"], 
@@ -95,7 +96,7 @@ def ip_address():
     return config["ip"]
 
 def get_config_table():
-    with open(str(config_file), "rb") as conf:
+    with open(str(_CONFIG_DIR / "config.toml"), "rb") as conf:
         data = tomllib.load(conf)
         return data["config"]
 

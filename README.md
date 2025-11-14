@@ -5,9 +5,11 @@ This is a simple web UI to send print commands to a PTouch label printer. The se
   
 ***Disclaimer:*** *This is my first attempt at web development and working with docker. So, the code and workflow might not be state of the art.*
 
+
 ## User Manual
 ### Startup
 The PTouch printer needs to be turned on (this may need to be done before the SBC finishes its boot routine) and "Editor Lite" must deactivated. To do that, if the Editor Lite LED is lit, press the corresponding button until it turns off.
+
 ### Web UI
 In your browser, enter the `http://<sbc_ip>:5000` (e.g. `http://192.168.1.5:5000`).  
 The UI should be self-explanatory. Each label can have up to four lines. The font size is scaled automatically. To save material, you may want to print multiple labels in a sequence. Clicking on "Add Label" before printing lets you add as many labels as you want. The labels are separated by a cut mark (a vertical dashed line). Below, you can see an example user input with its corresponding label:  
@@ -15,11 +17,12 @@ The UI should be self-explanatory. Each label can have up to four lines. The fon
 ![Example label](docs/images/example_label_ribbon.jpg)
 Following the [Build & Run](#build--run) steps allows you to shut down the host by clicking on the "On/Off" button in the top right corner. 
 
+
 ## Build & Run
 ### Requirements
 I am using [DietPi](https://dietpi.com) as the OS on a Raspberry Pi 3. It is lightweight, easily customizable, and compatible for many SBCs.  
 Docker needs to be installed. On DietPi, you may install and setup Docker using `dietpi-software`. According to [this guide](https://pimylifeup.com/raspberry-pi-docker/), the steps are:  
-```
+```bash
 sudo apt update
 sudo apt upgrade
 curl -sSL https://get.docker.com | sh
@@ -29,7 +32,7 @@ curl -sSL https://get.docker.com | sh
 **Configuration:**  
   
 In `config/config.toml`, fill in the host name and ip address used for ssh login, e.g.:  
-``` 
+```toml
 [config]
 host_name = "dietpi"
 ip = "192.168.1.5"
@@ -42,7 +45,7 @@ In `scripts/setup-shutdown.sh`, set `HOST_NAME` to the same as in `config/config
 ***Note:*** *This step will hopefully be obsolete. I just haven't found an easy way to parse a `.toml` file in a bash script yet...*  
 
 Make the scripts executable:  
-```
+```bash
 chmod +x scripts/*
 ```
 
@@ -53,7 +56,7 @@ chmod +x scripts/*
 `deploy.sh` will execute `setup-shutdown.sh` (which prepares everything for shutting down the host from within the container) and `start-container.sh` (which builds and starts the container).  
   
 Run the script:  
-```
+```bash
 scripts/deploy.sh
 ```    
 ***Note:*** *This script is only needed the first time you run the app. It sets the container's `--restart` flag to `always`. This way, the container will automatically start after the SBC boots. After the initial start, you can also run the container with the `start-container.sh` script.*  
@@ -67,17 +70,63 @@ On DietPi, enter `diepti-led_control` into the terminal and set the trigger for 
 ## Development with VSC and Dev Container
 With Visual Studio Code, you may want to use the **Remote-SSH** extension to work on a headless Raspberry Pi (or other SBC).
 Using the **Dev Container** extension in Visual Studio Code, you can reopen the repository in a dev container. To run the code there, run `python app.py` and open `http://localhost:5000` in your browser.  
+
 ### Optional: Simulate shutdown and run the flask in debug mode:  
 The following needs to be in `devcontainer.json`:  
-```
+```json
 "containerEnv": {
   "DEV_MODE": "1"
 }
 ```
 
+
+## Development with VSCodium and Dev Container (DevPod)
+If you are using VS Codium (or any other IDE) the VSCode's "Dev Container" extensions is not available. How ever, with **DevPod** you can achieve the same results. Follow the steps bellow for the corresponding setup.
+
+### Remote SSH extension for VSCodium (optional)
+You can use the **Open Remote - SSH** extension by **jeanp413** to connect VSCodium to the remote host (similar to VSCode's **Remote-SSH** extension).  
+After the extension has been installed, connect to the host by bringing up the command pallette (`shift` + `ctrl` + `P` or `shift` + `command` + `P`), enter "Remote-SSH" and select "Remote-SSH: Connect to Host". After that, you will be asked to enter `<user>@<hostname>` (e.g. `dietpi@192.168.1.6`) and after that the host password.  
+Now, you can open the project folder inside VSCodium by pressing `ctrl` + `O` (or `cmd` + `O`).
+
+### Use DevPod on host
+For further details on DevPod follow [this link](https://devpod.sh/docs/what-is-devpod).
+
+#### 1. Installation
+Use this command on the host machine to install DevPod:
+```bash
+curl -L -o devpod "https://github.com/loft-sh/devpod/releases/latest/download/devpod-linux-arm64" && sudo install -c -m 0755 devpod /usr/local/bin && rm -f devpod
+```
+
+#### 2. Add Docker as provider
+Local Docker can be added as provider.  
+***Note:*** *Docker needs to be installed beforehand.*
+```bash
+devpod provider add docker
+```
+
+#### 3. Start the workspace
+First, we move into the project directory then we start the workspace.  
+***Note:*** *You have to fill in the path to where you have cloned the code to.*
+```bash
+cd ~/ptouch-print-web-ui
+devpod up ./
+```
+
+#### 4. Connect to the workspace and run the app
+If everything worked as expected proceed with the following commands:
+```bash
+ssh ptouch-print-web-ui.devpod
+python src/app.py
+```
+Once the everything is running you can open `http://localhost:5000`.
+
+If there are changes to the develop environment (e.g. altered `devcontainer.json`) you can recreate the workspace using `devpod up ./ --recreate` (inside the project folder).
+
+
 ## Optional: PTouch P700 Stand
 I designed a 3D-printable stand for the PTouch P700 and a Raspberry Pi. The model is available on [Printables](https://www.printables.com/model/1324678-p-touch-p700-and-rasperry-pi-stand-simple-label-pr).
-![Ptouch P700 stand](docs/images/P700_Raspi_stand.jpg)
+![PTouch P700 stand](docs/images/P700_Raspi_stand.jpg)
+
 
 ## Known issues
 * After shutting down using the "On/Off" button, a message may appear that this didn't work even though the SBC was shut down.
