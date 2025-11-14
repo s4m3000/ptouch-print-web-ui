@@ -124,7 +124,7 @@ If there are changes to the develop environment (e.g. altered `devcontainer.json
 
 
 ## Optional: PTouch P700 Stand
-I designed a 3D-printable stand for the PTouch P700 and a Raspberry Pi. The model is available on [Printables](TODO).
+I designed a 3D-printable stand for the PTouch P700 and a Raspberry Pi. The model is available on [Printables](https://www.printables.com/model/1324678-p-touch-p700-and-rasperry-pi-stand-simple-label-pr).
 ![PTouch P700 stand](docs/images/P700_Raspi_stand.jpg)
 
 
