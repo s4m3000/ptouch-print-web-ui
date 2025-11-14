@@ -173,5 +173,8 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+# DevPod stuff
+.devpod-internal/
+
 # Private key
 container_shutdown_key

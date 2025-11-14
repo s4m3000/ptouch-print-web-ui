@@ -5,7 +5,7 @@ import tomllib
 from pathlib import Path
 
 app = Flask(__name__)
-config_file = Path("config/config.toml")
+config_file = Path("../config/config.toml")
 
 @app.route("/")
 def index():
